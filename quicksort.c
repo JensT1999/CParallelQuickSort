@@ -349,7 +349,7 @@ static int64_t calculatePivotRandom(const int64_t startingIndex, const int64_t e
  */
 static void quicksortIntern(char *array, SortType type, const size_t byteSizeOfStruct,
     const int64_t startingIndex, const int64_t endingIndex, int8_t (*cmp) (void*, void*)) {
-    const int64_t length = (endingIndex - startingIndex);
+    const int64_t length = (endingIndex - startingIndex) + 1;
     if(length <= THRESHOLD_INSERTION_QUICK_SWITCH) {
         insertionSort(array, type, byteSizeOfStruct, startingIndex, endingIndex, cmp);
     } else {

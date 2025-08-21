@@ -11,6 +11,7 @@ static bool turnThreadActive(Thread*);
 static bool turnThreadInactive(Thread*);
 static bool isThreadActive(Thread*);
 static ThreadContext *initThreadContext(ThreadPool*, Thread*);
+static bool freeThreadContext(ThreadContext**);
 static void initTaskQueue(TaskQueue*);
 
 static bool taskQueueEmpty(TaskQueue*);
@@ -117,15 +118,14 @@ static void *threadTicking(void *input) {
     if(input == NULL)
         pthread_exit(NULL);
 
-    const ThreadContext *contextOfThread = (ThreadContext* ) input;
+    ThreadContext *contextOfThread = (ThreadContext* ) input;
     Thread *currentThread = contextOfThread->currentThread;
     ThreadMetaData *currentThreadMetaData = &(currentThread->metaData);
     ThreadPool *currentThreadPool = contextOfThread->pool;
 
     const bool threadTurnedActive = turnThreadActive(currentThread);
     if(!threadTurnedActive) {
-        free((void* ) contextOfThread);
-        contextOfThread = NULL;
+        freeThreadContext(&contextOfThread);
         pthread_exit(NULL);
     }
 
@@ -167,8 +167,7 @@ static void *threadTicking(void *input) {
         }
     }
 
-    free((void* ) contextOfThread);
-    contextOfThread = NULL;
+    freeThreadContext(&contextOfThread);
     pthread_exit(NULL);
 }
 
@@ -344,6 +343,21 @@ static ThreadContext *initThreadContext(ThreadPool *pool, Thread *destThread) {
     resultContext->currentThread = destThread;
 
     return resultContext;
+}
+
+/**
+ * @brief Frees the specified ThreadContext struct.
+ *
+ * @param destContext the ThreadContext to be freed
+ * @return true -> if ThreadContext is successfully freed, false -> if ThreadContext is not successfully freed
+ */
+static bool freeThreadContext(ThreadContext **destContext) {
+    if((destContext = NULL) || (*destContext == NULL))
+        return false;
+
+    free(*destContext);
+    *destContext = NULL;
+    return true;
 }
 
 /**
