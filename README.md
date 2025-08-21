@@ -30,18 +30,18 @@ The functionality is guaranteed on devices that support POSIX. Windows is not ac
 Copy all files into your project. After that include the header 'quicksort.h'.<br>
 -> #include "quicksort.h"<br>
 Compile your project with:
-	<gcc OR clang> -O3 quicksort.c threadpool.c <YOUR FILES.c> -lpthread -o <NAME OF YOUR EXECUTABLE>
+><gcc OR clang> -O3 quicksort.c threadpool.c <YOUR FILES.c> -lpthread -o <NAME OF YOUR EXECUTABLE>
 
 ### Calling:
 
 You can call a single threaded quicksort like this:
-
-	quicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR);
-
+```c
+quicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR);
+```
 You can call a multi threaded quicksort like this:
-
-	parallelQuicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR, THREAD_POOL_POINTER);
-
+```c
+parallelQuicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR, THREAD_POOL_POINTER);
+```
 Please note:
 - BYTESIZEOFSTRUCT is only necessary when you're trying to sort an array of custom structs (e.g. SPECIAL_STRUCT)
 - When sorting structs, you must pass a comparator function pointer
