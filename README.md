@@ -31,7 +31,7 @@ Copy all files into your project. After that include the header 'quicksort.h'.<b
 -> #include "quicksort.h"<br>
 Compile your project with:
 <pre>
-<gcc OR clang> -O3 quicksort.c threadpool.c <YOUR FILES.c> -lpthread -o <NAME OF YOUR EXECUTABLE>
+gcc OR clang -O3 quicksort.c threadpool.c YOUR FILES.c -lpthread -o NAME OF YOUR EXECUTABLE
 </pre>
 ### Calling:
 
@@ -41,7 +41,8 @@ quicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR);
 ```
 You can call a multi threaded quicksort like this:
 ```c
-parallelQuicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR, THREAD_POOL_POINTER);
+parallelQuicksort(ARRAY, TYPE_OF_ARRAY, BYTESIZEOFSTRUCT, ARRAY_LENGTH, COMPARATOR,
+THREAD_POOL_POINTER);
 ```
 Please note:
 - BYTESIZEOFSTRUCT is only necessary when you're trying to sort an array of custom structs (e.g. SPECIAL_STRUCT)
