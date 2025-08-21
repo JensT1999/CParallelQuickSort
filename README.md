@@ -30,8 +30,9 @@ The functionality is guaranteed on devices that support POSIX. Windows is not ac
 Copy all files into your project. After that include the header 'quicksort.h'.<br>
 -> #include "quicksort.h"<br>
 Compile your project with:
-><gcc OR clang> -O3 quicksort.c threadpool.c <YOUR FILES.c> -lpthread -o <NAME OF YOUR EXECUTABLE>
-
+<pre>
+<gcc OR clang> -O3 quicksort.c threadpool.c <YOUR FILES.c> -lpthread -o <NAME OF YOUR EXECUTABLE>
+</pre>
 ### Calling:
 
 You can call a single threaded quicksort like this:
