@@ -33,7 +33,7 @@ int main() {
 
     struct timespec before, after, result;
 
-    ThreadPool *pool = initializeThreadPool(8);
+    ThreadPool *pool = initializeThreadPool(4);
     clock_gettime(CLOCK_REALTIME, &before);
     parallelQuicksort(array, DOUBLE, 0, ARRAY_SIZE, NULL, pool);
     clock_gettime(CLOCK_REALTIME, &after);
