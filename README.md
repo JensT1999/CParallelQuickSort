@@ -1,8 +1,8 @@
 # Parallel Quicksort in C
 
 A flexible quicksort algorithm based on Hoare’s partitioning scheme, capable of sorting any underlying array type.
-The Quicksort provides the option to be used either single-threaded or multi-threaded.<br>
-Supported types include all common primitive types, e.g., double, float, int, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t, uint32_t and uint64_t.
+The Quicksort provides the option to be used either single-threaded or multi-threaded.<br><br>
+Supported types include all common primitive types, e.g., double, float, int, int8_t, int16_t, int32_t, int64_t, uint8_t, uint16_t, uint32_t and uint64_t.<br>
 In addition, it is possible to sort char** e.g. "String Arrays" and arrays of arbitrary structs.
 
 ## Functionality
@@ -26,7 +26,7 @@ In addition, it is possible to sort char** e.g. "String Arrays" and arrays of ar
 
 Please note that the algorithm is written in C99.<br>
 Also note that the underlying thread pool uses POSIX.<br>
-The functionality is guaranteed on devices that support POSIX. Windows is not actively supported at this time.<br>
+The functionality is guaranteed on devices that support POSIX. On Windows please ensure using winpthread (comes with GCC installation).<br>
 Copy all files into your project. After that include the header 'quicksort.h'.<br>
 -> #include "quicksort.h"<br>
 Compile your project with:
