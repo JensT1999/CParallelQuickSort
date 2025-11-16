@@ -2,3 +2,6 @@
 build/
 main.c
 testqs
+javanativesort.c
+javanativesort.h
+libjavanativesort.dylib
