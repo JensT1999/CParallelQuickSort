@@ -63,8 +63,8 @@ bool freeThreadPool(ThreadPool **pool) {
     if(!(*pool)->closed)
         return false;
 
-    free(pool);
-    pool = NULL;
+    free(*pool);
+    *pool = NULL;
     return true;
 }
 
