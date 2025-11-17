@@ -123,12 +123,6 @@ static void *threadTicking(void *input) {
     ThreadMetaData *currentThreadMetaData = &(currentThread->metaData);
     ThreadPool *currentThreadPool = contextOfThread->pool;
 
-    const bool threadTurnedActive = turnThreadActive(currentThread);
-    if(!threadTurnedActive) {
-        freeThreadContext(&contextOfThread);
-        pthread_exit(NULL);
-    }
-
     while (true) {
         pthread_mutex_lock(&(currentThreadPool->queueMutex));
 
@@ -186,13 +180,19 @@ static bool initThread(ThreadPool *pool, Thread *destThread) {
     pthread_mutex_init(&(destThread->activeMutex), NULL);
     destThread->active = false;
 
-    const ThreadContext *context = initThreadContext(pool, destThread);
+    ThreadContext *context = initThreadContext(pool, destThread);
     if(context == NULL)
         return false;
 
     if((pthread_create(&(destThread->internThread), NULL, &threadTicking, (void* ) context)) != 0) {
+        freeThreadContext(&context);
         perror("It seems like there was a problem initializing the thread");
         return false;
+    }
+
+    const bool threadTurnedActive = turnThreadActive(destThread);
+    if(!threadTurnedActive) {
+        freeThreadContext(&context);
     }
 
     return true;
@@ -352,7 +352,7 @@ static ThreadContext *initThreadContext(ThreadPool *pool, Thread *destThread) {
  * @return true -> if ThreadContext is successfully freed, false -> if ThreadContext is not successfully freed
  */
 static bool freeThreadContext(ThreadContext **destContext) {
-    if((destContext = NULL) || (*destContext == NULL))
+    if((destContext == NULL) || (*destContext == NULL))
         return false;
 
     free(*destContext);
